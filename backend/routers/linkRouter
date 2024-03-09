@@ -1,0 +1,18 @@
+const express = require('express');
+const { postUrl, getUrl, deleteUrl } = require('../controllers/linkController');
+// const { validateUser } = require('../middleware/protectRoute');
+const linkRouter = express.Router();
+
+linkRouter  
+    .route('/create/:id')
+    .post(postUrl)
+
+linkRouter
+    .route('/get/:id')
+    .get(getUrl)
+
+linkRouter
+    .route('/delete/:id')
+    .delete(deleteUrl)
+
+module.exports = linkRouter;

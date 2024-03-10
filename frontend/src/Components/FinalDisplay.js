@@ -15,7 +15,7 @@ const FinalDisplay = () => {
     const copyData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:8080/api/auth/getUserById/${userId}`
+          `http://link-sharing-app-sigma.vercel.app/api/auth/getUserById/${userId}`
         );
         setName(data.data.name);
         setEmail(data.data.email);
@@ -32,7 +32,7 @@ const FinalDisplay = () => {
     const copyLink = async () => {
         try {
         const {data} = await axios.get(
-            `http://localhost:8080/api/links/get/${userId}`
+            `http://link-sharing-app-sigma.vercel.app/api/links/get/${userId}`
           );
           if(data){
             setLinks(data.data.links);

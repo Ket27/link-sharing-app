@@ -25,7 +25,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "http://link-sharing-app-sigma.vercel.app/api/auth/login",
+        "http://localhost:8080/api/auth/login",
         { email, password },
         config
       );

@@ -26,7 +26,7 @@ const UserProfile = () => {
     };
 
     const { data } = await axios.put(
-      `http://link-sharing-app-sigma.vercel.app/api/auth/updateUser/${userId}`,
+      `http://localhost:8080/api/auth/updateUser/${userId}`,
       formData,
       config
     );

@@ -216,6 +216,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 40px;
   min-height: 40px;
   width: 90%;
@@ -231,19 +232,40 @@
   margin-top: 20%;
 }
 
-.Display-UserImage{
-  height: 80px;
-  margin-left: 25%;
-  margin-top: -30%;
-  width : 50%;
+.Display-UserImage {
+  width: 100px; 
+  height: 100px; 
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -60px; 
   overflow: hidden;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; 
+  border: 2px solid #ccc;
 }
 
-.Display-UserImage img{
+.Display-UserImage img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; 
   display: block;
-  margin: 0 auto; 
+}
+
+.dis-links{
+  height: 10%;
+  width:90%;
+}
+
+.Display-Single-Link span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 40px;
+  width: 100%;
 }
 
 /* AddLinks */
@@ -605,86 +627,121 @@
 
 /* FinalDisplay.js */
 
-.FinalDisplay-Container{
+.FinalDisplay-Container {
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 70px;
   width: 20vw;
+  height: 65vh;
+  min-height: 465px;
+  min-width: 224px;
+  margin-top: 10%;
+  left: 40%;
+  top: 0;
   box-shadow: 0 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  height: 65vh;
   background-color: white;
-  margin-top: 10%;
-  min-height: 465px;
   z-index: 1;
-  left : 40%;
-  top : 0;
-  min-width: 224px;
 }
 
-.FinalDisplay-Image{
-  width : 50%;
+.FinalDisplay-Image {
+  width: 50%;
+  height: auto;
   overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .FinalDisplay-Image img {
   width: 100%;
   height: auto;
   display: block;
-  margin: 0 auto; 
+  object-fit: cover;
 }
 
-.FinalDisplay-Text{
-  text-align : center;
+.FinalDisplay-Text {
+  text-align: center;
+  margin: 1em 0;
 }
 
-.FinalDisplay-Links{
+.FinalDisplay-Links {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 18%;
-  width:100%;
-  overflow-y: auto;
+  width: 90%;
   max-height: 200px;
+  overflow-y: auto;
+  margin-top: 2em;
 }
 
-.FinalDisplay-Link{
+.FinalDisplay-Link {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  min-height: 40px;
   width: 90%;
-  border: 2px solid black;
+  height: 40px;
+  margin: 0.5em 0;
+  border: 2px solid gray;
   border-radius: 8px;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
-  border-color: gray;
-  margin-top: 3%;
 }
 
-@media screen and (max-width : 1020px) and (min-width : 500px) {
-  .FinalDisplay-Container{
-    left : 37%;
-    margin-top : 40%;
-    height : 20%;
+.FinalDisplay-Links span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 40px;
+  width: 20%;
+  margin-left: 40%;
+} 
+
+.fin-dis-links{
+  height: 10%;
+  width:40%;
+}
+
+@media screen and (max-width: 1024px) {
+  .FinalDisplay-Container {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;
+    margin-top: 20%;
   }
 }
 
-@media screen and (width : 1024px) and (min-height : 1000px){
-  .FinalDisplay-Container{
-    height : 20%;
-    margin-top: 40%;
+@media screen and (max-width: 750px) {
+  .FinalDisplay-Container {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    margin-top: 30%;
+  }
+
+  .FinalDisplay-Image {
+    width: 60%;
   }
 }
 
-@media screen and (max-width:500px){
-  .FinalDisplay-Container{
-    left:22%;
-    height : 20%;
+@media screen and (max-width: 500px) {
+  .FinalDisplay-Container {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95vw;
+    height: auto;
     margin-top: 50%;
+    padding-bottom: 2em;
+  }
+
+  .FinalDisplay-Image {
+    width: 70%;
+  }
+
+  .FinalDisplay-Links {
+    width: 100%;
+    max-height: 150px;
   }
 }
 

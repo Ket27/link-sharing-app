@@ -4,39 +4,72 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { userActions } from "../store/userSlice";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const UserProfile = () => {
   const { userDetails } = useSelector((store) => store.user);
   const [name, setName] = useState(userDetails.name);
   const [email, setEmail] = useState(userDetails.email);
-  const [photo, setPhoto] = useState(userDetails.photo);
+  const [photo, setPhoto] = useState(null);
+  const [previewPhoto, setPreviewPhoto] = useState(userDetails.photo);
   const dispatch = useDispatch();
   const { userId } = useParams();
 
   const submitHandler = async () => {
+    if (!name || !email) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
-    formData.append("photo", photo);
+    if (photo) formData.append("photo", photo);
 
-    const config = {
-      headers: {
-        "Content-type": "multipart/form-data",
-      },
-    };
+    try {
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      };
 
-    const { data } = await axios.put(
-      `http://localhost:8080/api/auth/updateUser/${userId}`,
-      formData,
-      config
-    );
-
-    if (data.message === "user Updated") {
-      dispatch(
-        userActions.setUserDetails({ name, email, photo: data.data.photo })
+      const { data } = await axios.put(
+        `http://localhost:8080/api/auth/updateUser/${userId}`,
+        formData,
+        config
       );
-      localStorage.setItem("userInfo", JSON.stringify(data.data));
-      toast.success("User Updated");
+
+      if (data.message === "user Updated") {
+        dispatch(userActions.setUserDetails(data.data));
+        localStorage.setItem("userInfo", JSON.stringify(data.data));
+        toast.success("User Updated");
+      } else {
+        toast.error("Update failed");
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    }
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!["image/png", "image/jpeg", "image/bmp"].includes(file.type)) {
+        toast.error("Invalid file format. Only png, jpg, or bmp are allowed.");
+        return;
+      }
+
+      if (file.size > 1024 * 1024) {
+        toast.error("File size should be less than 1MB.");
+        return;
+      }
+
+      setPhoto(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -52,15 +85,25 @@ const UserProfile = () => {
           <input
             type="file"
             className="Image-Box"
-            onChange={(e) => {
-              setPhoto(e.target.files[0]);
-            }}
-            style={{ backgroundImage: `url('../../../uploads/${photo}')` }}
-           />
+            accept="image/png, image/jpeg, image/bmp"
+            onChange={handlePhotoChange}
+          />
+          {previewPhoto && (
+            <img
+              src={previewPhoto}
+              alt=""
+              style={{
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                marginTop: "10px",
+              }}
+            />
+          )}
           <p>
             Image must be below 1024x1024px.
             <br />
-            Use png, jpg or bmp format
+            Use png, jpg or bmp format.
           </p>
         </div>
         <div className="UserProfile">
@@ -70,6 +113,7 @@ const UserProfile = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
             />
           </div>
 
@@ -79,6 +123,7 @@ const UserProfile = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
             />
           </div>
         </div>

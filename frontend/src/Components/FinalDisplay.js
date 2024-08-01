@@ -5,78 +5,68 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const FinalDisplay = () => {
   const { userId } = useParams();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [photo, setPhoto] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState("");
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const copyData = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await axios.get(
+        const userResponse = await axios.get(
           `http://localhost:8080/api/auth/getUserById/${userId}`
         );
-        setName(data.data.name);
-        setEmail(data.data.email);
-        setPhoto(data.data.photo);
+        setName(userResponse.data.data.name);
+        setEmail(userResponse.data.data.email);
+        setPhoto(userResponse.data.data.photo);
+
+        const linksResponse = await axios.get(
+          `http://localhost:8080/api/links/get/${userId}`
+        );
+        setLinks(linksResponse.data.data.links);
       } catch (err) {
-        console.log(err);
+        console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
       }
     };
-    copyData();
+    fetchData();
   }, [userId]);
-
-
-  useEffect(() => {
-    const copyLink = async () => {
-        try {
-        const {data} = await axios.get(
-            `http://localhost:8080/api/links/get/${userId}`
-          );
-          if(data){
-            setLinks(data.data.links);
-          }
-        }
-
-        catch(err){
-            console.log(err);
-        }
-
-        finally{
-          setLoading(false);
-        }
-    };
-    copyLink();
-  }, [userId])
-
 
   return (
     <div className="FinalDisplay-Container">
-      {loading && <AiOutlineLoading3Quarters />}
-      <div className="FinalDisplay-Image">
-        <img src={`../../../uploads/${photo}`} alt="pic" />
-      </div>
-      <div className="FinalDisplay-Text">
-        {name} <br />
-        {email}
-      </div>
-      {links.length > 0 && <div className="FinalDisplay-Links">
-         {links.map((link) => (
-            <div key={link._id} className="FinalDisplay-Link">
-            <Link
-              to={`${link.url}`}
-              style={{
-                textDecoration: "none",
-                fontFamily: "Arial, Helvetica, sans-serif",
-                color: "black",
-              }}
-            >
-              {link.platform}-
-            </Link>
+      {loading ? (
+        <AiOutlineLoading3Quarters className="Loading-Spinner" />
+      ) : (
+        <>
+          <div className="FinalDisplay-Image">
+            <img src={`/uploads/${photo}`} alt="Profile" />
           </div>
-         ))}
-      </div>}
+          <div className="FinalDisplay-Text">
+            {name} <br />
+            {email}
+          </div>
+          <div className="FinalDisplay-Links">
+            {links.map((link) => (
+              <div key={link._id} className="FinalDisplay-Link">
+                <Link
+                  to={link.url}
+                  style={{
+                    textDecoration: "none",
+                    fontFamily: "Arial, Helvetica, sans-serif",
+                    color: "black",
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{link.platform} <img src = {require("../assets/link arrow.png")} alt="Link" className= "fin-dis-links"/></span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

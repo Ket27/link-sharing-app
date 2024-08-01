@@ -30,36 +30,40 @@ const Display = ({ plat }) => {
             <div className="Display-User">
               <div className="Display-UserImage">
                 <img
-                  src={`../../../uploads/${userDetails.photo}`}
+                  src={`../../../uploads/${userDetails.photo || 'default.jpg'}`}
                   alt="Profile"
+                  onError={(e) => (e.target.src = 'default.jpg')}
                 />
               </div>
-              {userDetails.name}
-              <br />
-              {userDetails.email}
+              <div>
+                {userDetails.name}
+                <br />
+                {userDetails.email}
+              </div>
             </div>
             <div
               className="Display-Links"
               style={{
                 justifyContent:
-                  plat.length <= 3 ? "flex-start" : "space-between",
+                  plat && plat.length <= 3 ? "flex-start" : "space-between",
               }}
             >
-              {plat.length > 0 &&
-                plat.map((links) => (
-                  <div key={links._id} className="Display-Single-Link">
-                    <Link
-                      to={`${links.url}`}
-                      style={{
-                        textDecoration: "none",
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        color: "black",
-                      }}
-                    >
-                      {links.platform}-
-                    </Link>
-                  </div>
-                ))}
+              {plat && plat.length > 0 && plat.map((links) => (
+                <div key={links._id} className="Display-Single-Link">
+                  <Link
+                    to={links.url}
+                    style={{
+                      textDecoration: "none",
+                      fontFamily: "Arial, Helvetica, sans-serif",
+                      color: "black",
+                    }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                   <span>{links.platform} <img src = {require("../assets/link arrow.png")} alt="Link" className="dis-links"/></span> 
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </div>

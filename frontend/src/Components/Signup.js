@@ -31,7 +31,7 @@ const Signup = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:8080/api/auth/signup",
+        "https://link-sharing-app-kohl.vercel.app/api/auth/signup",
         { name, email, password },
         config
       );

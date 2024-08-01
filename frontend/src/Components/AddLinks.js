@@ -55,7 +55,7 @@ const AddLinks = ({ plat, setPlat }) => {
       if (action === "remove") {
         try {
           const { data } = await axios.delete(
-            `https://link-sharing-app-kohl.vercel.app//api/links/delete/${userId}`,
+            `https://link-sharing-app-kohl.vercel.app/api/links/delete/${userId}`,
             { data: { url: plat[index].url }, headers: config.headers }
           );
           setPlat([...plat.slice(0, index), ...plat.slice(index + 1)]);

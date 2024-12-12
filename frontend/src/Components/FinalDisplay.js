@@ -15,14 +15,14 @@ const FinalDisplay = () => {
     const fetchData = async () => {
       try {
         const userResponse = await axios.get(
-          `https://link-sharing-app-kohl.vercel.app/api/auth/getUserById/${userId}`
+          `https://yourlinks-rl9s.onrender.com/api/auth/getUserById/${userId}`
         );
         setName(userResponse.data.data.name);
         setEmail(userResponse.data.data.email);
         setPhoto(userResponse.data.data.photo);
 
         const linksResponse = await axios.get(
-          `https://link-sharing-app-kohl.vercel.app/api/links/get/${userId}`
+          `https://yourlinks-rl9s.onrender.com/api/links/get/${userId}`
         );
         setLinks(linksResponse.data.data.links);
       } catch (err) {

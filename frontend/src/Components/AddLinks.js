@@ -42,7 +42,7 @@ const AddLinks = ({ plat, setPlat }) => {
             ])
           );
           const { data } = await axios.post(
-            `https://link-sharing-app-kohl.vercel.app/api/links/create/${userId}`,
+            `https://yourlinks-rl9s.onrender.com/api/links/create/${userId}`,
             { platform, url },
             config
           );
@@ -55,7 +55,7 @@ const AddLinks = ({ plat, setPlat }) => {
       if (action === "remove") {
         try {
           const { data } = await axios.delete(
-            `https://link-sharing-app-kohl.vercel.app/api/links/delete/${userId}`,
+            `https://yourlinks-rl9s.onrender.com/api/links/delete/${userId}`,
             { data: { url: plat[index].url }, headers: config.headers }
           );
           setPlat([...plat.slice(0, index), ...plat.slice(index + 1)]);
@@ -79,7 +79,7 @@ const AddLinks = ({ plat, setPlat }) => {
     const UrlsShown = async () => {
       try {
         const { data } = await axios.get(
-          `https://link-sharing-app-kohl.vercel.app/api/links/get/${userId}`
+          `https://yourlinks-rl9s.onrender.com/api/links/get/${userId}`
         );
         setPlat([...data.data.links]);
       } catch (error) {

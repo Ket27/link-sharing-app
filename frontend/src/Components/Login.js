@@ -25,7 +25,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "https://link-sharing-app-kohl.vercel.app/api/auth/login",
+        "https://yourlinks-rl9s.onrender.com/api/auth/login",
         { email, password },
         config
       );

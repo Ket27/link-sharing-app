@@ -34,7 +34,7 @@ const UserProfile = () => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:8080/api/auth/updateUser/${userId}`,
+        `https://link-sharing-app-kohl.vercel.app/api/auth/updateUser/${userId}`,
         formData,
         config
       );

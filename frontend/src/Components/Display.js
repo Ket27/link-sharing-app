@@ -47,7 +47,7 @@ const Display = ({ plat }) => {
             <div className="Display-User">
               <div className="Display-UserImage">
                 <img
-                  src={`http://localhost:8080/uploads/${
+                  src={`https://your-links-k2kb.onrender.com/uploads/${
                     userDetails.photo || "default.jpg"
                   }`}
                   alt="Profile"

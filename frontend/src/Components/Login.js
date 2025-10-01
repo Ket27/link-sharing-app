@@ -25,12 +25,11 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        "https://yourlinks-rl9s.onrender.com/api/auth/login",
+        "/api/auth/login",
         { email, password },
         config
       );
 
-      console.log(data);
       if (data.message === "User Logged in") {
         localStorage.setItem("userInfo", JSON.stringify(data.data));
         console.log(JSON.stringify(data.data));

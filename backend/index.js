@@ -16,13 +16,13 @@ const Port = process.env.PORT || 8080;
 const _dirname = path.resolve();
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://yourlinks-rl9s.onrender.com/');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-type');
     next();
 });
 
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, "uploads")));
 
 app.use('/api/auth', userRouter);
 app.use('/api/links', linkRouter);

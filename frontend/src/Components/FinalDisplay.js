@@ -3,6 +3,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+const colors = [
+  '#FF6B9D', // Hot Pink
+  '#C44569', // Dark Pink
+  '#FFA502', // Orange
+  '#F79F1F', // Amber
+  '#54A0FF', // Blue
+  '#5F27CD', // Purple
+  '#00D2D3', // Cyan
+  '#1DD1A1'  // Emerald
+];
+
 const FinalDisplay = () => {
   const { userId } = useParams();
   const [name, setName] = useState("");
@@ -11,18 +22,22 @@ const FinalDisplay = () => {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userResponse = await axios.get(
-          `https://yourlinks-rl9s.onrender.com/api/auth/getUserById/${userId}`
+          `/api/auth/getUserById/${userId}`
         );
         setName(userResponse.data.data.name);
         setEmail(userResponse.data.data.email);
         setPhoto(userResponse.data.data.photo);
 
         const linksResponse = await axios.get(
-          `https://yourlinks-rl9s.onrender.com/api/links/get/${userId}`
+          `/api/links/get/${userId}`
         );
         setLinks(linksResponse.data.data.links);
       } catch (err) {
@@ -49,7 +64,7 @@ const FinalDisplay = () => {
           </div>
           <div className="FinalDisplay-Links">
             {links.map((link) => (
-              <div key={link._id} className="FinalDisplay-Link">
+              <div key={link._id} className="FinalDisplay-Link" style={{backgroundColor: getRandomColor()}}>
                 <Link
                   to={link.url}
                   style={{

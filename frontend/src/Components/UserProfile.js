@@ -11,7 +11,9 @@ const UserProfile = () => {
   const [name, setName] = useState(userDetails.name);
   const [email, setEmail] = useState(userDetails.email);
   const [photo, setPhoto] = useState(null);
-  const [previewPhoto, setPreviewPhoto] = useState(userDetails.photo);
+  const [previewPhoto, setPreviewPhoto] = useState(userDetails.photo 
+      ? `http://localhost:8080/uploads/${userDetails.photo}` 
+      : null);
   const dispatch = useDispatch();
   const { userId } = useParams();
 
@@ -34,7 +36,7 @@ const UserProfile = () => {
       };
 
       const { data } = await axios.put(
-        `https://yourlinks-rl9s.onrender.com/api/auth/updateUser/${userId}`,
+        `/api/auth/updateUser/${userId}`,
         formData,
         config
       );

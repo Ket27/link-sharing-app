@@ -84,11 +84,14 @@ module.exports.UpdateUser = async (req, res) => {
     const { id } = req.params;
     const { name, email } = req.body;
 
-    const newPhoto = req.file ? req.file.filename : null;
+    const updateData = { name, email };
+    if (req.file) {
+      updateData.photo = req.file.filename; 
+    }
 
     const user = await userModel.findOneAndUpdate(
       { _id: id },
-      { name: name, email: email, photo: newPhoto }
+      { name: name, email: email, photo: updateData.newPhoto }
     );
 
     if (!user) {

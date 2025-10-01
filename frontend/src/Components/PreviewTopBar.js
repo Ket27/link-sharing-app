@@ -16,7 +16,6 @@ const PreviewTopBar = () => {
       navigator.clipboard
         .writeText(currentUrl)
         .then(() => {
-          console.log("URL copied to clipboard!");
           toast.success("Link Copied!");
         })
         .catch((err) => {

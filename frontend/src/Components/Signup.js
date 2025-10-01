@@ -43,7 +43,6 @@ const Signup = () => {
 
       if (data.message === "User Signed Up") {
         localStorage.setItem("userInfo", JSON.stringify(data.data));
-        console.log(JSON.stringify(data.data));
         dispatch(userActions.setUserDetails(data.data));
         navigate(`/yourlinks/addLinks+profiledetails/${data.data._id}`);
       }

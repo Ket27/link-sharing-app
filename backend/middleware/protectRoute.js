@@ -12,7 +12,6 @@ module.exports.validateUser = (req, res, next) => {
                     message: "User is not authorized"
                 });
             } else {
-                console.log(user);
                 req.user = user.user;
                 next();
             }

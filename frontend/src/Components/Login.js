@@ -32,7 +32,6 @@ const Login = () => {
 
       if (data.message === "User Logged in") {
         localStorage.setItem("userInfo", JSON.stringify(data.data));
-        console.log(JSON.stringify(data.data));
         dispatch(userActions.setUserDetails(data.data));
         navigate(`/yourlinks/addLinks+profiledetails/${data.data._id}`);
       } else if (data.message === "password not same") {
